@@ -1,2 +1,2 @@
-# SuporteJ-
+# TechGO-
 App de Suporte 
