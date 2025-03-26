@@ -23,8 +23,10 @@ export default function LoginScreen() {
   const [password, setPassword] = useState<string>("");
 
   const handleLogin = () => {
-    // Aqui você implementa a lógica de autenticação (API, validação etc.)
-    console.log("Login com:", email, password);
+    // Aqui você implementaria a lógica de autenticação.
+    // Por enquanto, vamos simular um login bem-sucedido e redirecionar.
+    console.log("Login realizado com sucesso:", email, password);
+    navigation.navigate("Home"); // Redireciona para a tela de GPS
   };
 
   return (
@@ -46,14 +48,12 @@ export default function LoginScreen() {
         secureTextEntry
       />
       <Button title="Entrar" onPress={handleLogin} />
-
       <TouchableOpacity onPress={() => navigation.navigate("Register")}>
         <Text style={styles.link}>Não tem uma conta? Cadastre-se</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
