@@ -1,4 +1,4 @@
-package com.techgo.backend;
+package com.backend.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

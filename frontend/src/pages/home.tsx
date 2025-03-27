@@ -22,9 +22,9 @@ type NavigationProps = NativeStackNavigationProp<RootStackParamList, "Home">;
 
 // Estrutura de dados para animar ícones
 const iconData = [
-  { label: "Viagem", icon: "directions-car", route: "GPS" },
-  { label: "Envios", icon: "local-shipping", route: "" },
-  { label: "Reserve", icon: "schedule", route: "" },
+  { label: "Solicitar Técnico", icon: "directions-car", route: "GPS" },
+  { label: "Transporte", icon: "local-shipping", route: "" },
+  { label: "Histórico", icon: "schedule", route: "" },
   { label: "Promo", icon: "local-offer", route: "" },
 ];
 
@@ -36,7 +36,7 @@ export default function UberLikeHome() {
   const iconAnimArr = iconData.map(() => useRef(new Animated.Value(0)).current);
 
   useEffect(() => {
-    // Animação de fade-in para o ScrollView
+    // Animação de fade-in do ScrollView
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 600,
@@ -49,18 +49,17 @@ export default function UberLikeHome() {
       Animated.timing(anim, {
         toValue: 1,
         duration: 500,
-        delay: index * 200, // retardo para dar efeito de cascata
+        delay: index * 200,
         useNativeDriver: true,
       }).start();
     });
   }, []);
 
-  // Renderização dos ícones animados
+  // Renderização dos ícones com animação
   const renderIcons = () => {
     return (
       <View style={styles.iconsRow}>
         {iconData.map((item, index) => {
-          // Cria duas interpolations para opacidade e movimento vertical
           const iconOpacity = iconAnimArr[index].interpolate({
             inputRange: [0, 1],
             outputRange: [0, 1],
@@ -106,17 +105,12 @@ export default function UberLikeHome() {
     >
       {/* Cabeçalho com tabs */}
       <View style={styles.header}>
-        <TouchableOpacity style={[styles.tabButton, styles.activeTab]}
-          onPress={() => { /* Rotina caso queira algo para Viagens Tab */ }}
-        >
+        <TouchableOpacity style={[styles.tabButton, styles.activeTab]} onPress={() => {}}>
           <Text style={styles.tabTextActive}>Viagens</Text>
         </TouchableOpacity>
 
         {/* Botão Mercado redirecionando para Market */}
-        <TouchableOpacity
-          style={styles.tabButton}
-          onPress={() => navigation.navigate("Market")}
-        >
+        <TouchableOpacity style={styles.tabButton} onPress={() => navigation.navigate("Market")}>
           <Text style={styles.tabText}>Mercado</Text>
         </TouchableOpacity>
       </View>
@@ -132,7 +126,7 @@ export default function UberLikeHome() {
         />
         <View style={styles.promoInfo}>
           <Text style={styles.promoTitle}>Economize com a TechGO</Text>
-          <Text style={styles.promoSubtitle}>Viagens econômicas de moto ou carro</Text>
+          <Text style={styles.promoSubtitle}>Atendimento de Técnicos especializados em sua casa</Text>
         </View>
       </View>
 
@@ -151,11 +145,13 @@ export default function UberLikeHome() {
           title="Suporte em Rede"
           description="Problemas de internet? Resolva rápido."
           icon="wifi"
+          onPress={() => navigation.navigate("SuporteRede")}
         />
         <ExtraServiceCard
           title="Limpeza de PC"
           description="Deixe seu computador rodando liso."
           icon="computer"
+          onPress={() => navigation.navigate("LimpezaPC")}
         />
       </View>
       <View style={styles.extraRow}>
@@ -163,11 +159,13 @@ export default function UberLikeHome() {
           title="Formatação"
           description="Novo sistema, tudo zerado."
           icon="settings"
+          onPress={() => navigation.navigate("Formatacao")}
         />
         <ExtraServiceCard
           title="Celular"
           description="Conserte seu celular ou tablet."
           icon="phone-android"
+          onPress={() => navigation.navigate("Celular")}
         />
       </View>
     </Animated.ScrollView>
@@ -178,19 +176,21 @@ function ExtraServiceCard({
   title,
   description,
   icon,
+  onPress,
 }: {
   title: string;
   description: string;
   icon: string;
+  onPress: () => void;
 }) {
   return (
-    <View style={styles.extraCard}>
+    <TouchableOpacity style={styles.extraCard} onPress={onPress}>
       <MaterialIcons name={icon} size={24} color="#3498db" style={styles.extraIcon} />
       <View style={styles.extraInfo}>
         <Text style={styles.extraTitle}>{title}</Text>
         <Text style={styles.extraDesc}>{description}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
